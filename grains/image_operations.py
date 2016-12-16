@@ -8,7 +8,7 @@ from PIL import Image
 
 """
 Gives the average RGB color intensity in the given dimensions of the image.
-Input params: Image, corner points to find the dimensions (minX,minY) to 
+Input params: Image, corner points to find the dimensions (minX,minY) to
 (maxX,maxY). pixel_array if the image is already laoded.
 Output: tuple of three float values representing RGB intensity in the image.
 
@@ -29,7 +29,7 @@ def avg_color(image, minX, minY, maxX, maxY, pixel_array=None):
   return [sum_counts[0]/pixels_counted, sum_counts[1]/pixels_counted, sum_counts[2]/pixels_counted]
 
 """
-Gives 4x3 matrix of values representing the RGB values in each quadrant of 
+Gives 4x3 matrix of values representing the RGB values in each quadrant of
 the image in the specified path
 Input: image_path
 Output: List of 12 float values
@@ -40,7 +40,7 @@ def twelve_tone(image_path):
   a = avg_color(image, 0, 0, image.size[0]/2, image.size[1]/2)
   b = avg_color(image, image.size[0]/2, 0, image.size[0], image.size[1]/2)
   c = avg_color(image, 0, image.size[1]/2, image.size[0]/2, image.size[1])
-  d = avg_color(image, image.size[1]/2, image.size[1]/2, image.size[0], 
+  d = avg_color(image, image.size[1]/2, image.size[1]/2, image.size[0],
     image.size[1])
   return [
       a[0], a[1], a[2],

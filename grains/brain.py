@@ -10,16 +10,19 @@ import sys
 from sys import argv
 import pickle
 
-import image_operations as io
+# PyBrain imports
 from pybrain.tools.shortcuts import buildNetwork
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import BackpropTrainer
 from pybrain import TanhLayer
 
+# Local imports
+import image_operations as io
+
 class Brain:
   """
 
-  Constructor. 
+  Constructor.
   Input: hidden_nodes - number of hidden nodes used in the neuralnetwork
 
   """
@@ -29,7 +32,7 @@ class Brain:
     bias = true allows for a bias unit to be added in each neural net layer
     hiddenclass represents the method used by the hidden layer
     """
-    self.classifier_neural_net = buildNetwork(12, hidden_nodes, 1, bias=True, hiddenclass=TanhLayer) 
+    self.classifier_neural_net = buildNetwork(12, hidden_nodes, 1, bias=True, hiddenclass=TanhLayer)
     # Initializing dataset for supervised regression training
     self.data_sets = SupervisedDataSet(12, 1)
     # classification_trainer uses backpropagation supervised training method for training the newural network
@@ -39,13 +42,16 @@ class Brain:
   Method to add a sample image to the datasets for training the classifier
   """
   def add_image_to_train(self, image_file, group_id):
-    self.data_sets.addSample(io.twelve_tone(image_file), (group_id,))
+    tto = io.twelve_tone(image_file)
+    print(tto)
+    self.data_sets.addSample(tto, (group_id,))
 
   def train(self):
-    #classification_trainer.trainUntilConvergence() 
+    #classification_trainer.trainUntilConvergence()
     #this will take forever (possibly literally in the pathological case)
-    for i in range(0, 30):
-      self.classification_trainer.train() 
+    # for i in range(0, 30):
+    #   self.classification_trainer.train()
+    self.classification_trainer.trainUntilConvergence()
 
   def save(self, file_name="classifier.brain"):
     with open(file_name, 'wb') as file_pointer:
@@ -56,8 +62,10 @@ class Brain:
       self.classifier_neural_net = pickle.load(file_pointer)
 
   def classify(self, image_file):
-    if self.classifier_neural_net.activate(io.twelve_tone(image_file)) < 0.5:
-      return 0
-    else:
-      return 1
+    score = self.classifier_neural_net.activate(io.twelve_tone(image_file))
+    print(score)
 
+    if score < 1.5:
+      return "chick-peas"
+    else:
+      return "green-peas"
