@@ -4,7 +4,8 @@ from dirpath import DIRPATH
 
 GRAINS = [
             {"group": "chick-peas", "group_id": 1, "path": DIRPATH + "/data/chick-peas/"},
-            {"group": "green-peas", "group_id": 2, "path": DIRPATH + "/data/green-peas/"}
+            {"group": "green-peas", "group_id": 2, "path": DIRPATH + "/data/green-peas/"},
+            {"group": "rice", "group_id": 3, "path": DIRPATH + "/data/rice/"}
         ]
 
 class Grain():

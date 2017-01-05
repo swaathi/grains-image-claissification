@@ -49,9 +49,10 @@ class Brain:
   def train(self):
     #classification_trainer.trainUntilConvergence()
     #this will take forever (possibly literally in the pathological case)
-    # for i in range(0, 30):
-    #   self.classification_trainer.train()
-    self.classification_trainer.trainUntilConvergence()
+    for i in range(0, 30):
+      self.classification_trainer.train()
+    # print("Converging...This is going to take long!")
+    # self.classification_trainer.trainUntilConvergence()
 
   def save(self, file_name="classifier.brain"):
     with open(file_name, 'wb') as file_pointer:
@@ -59,13 +60,17 @@ class Brain:
 
   def load(self, file_name="classifier.brain"):
     with open(file_name, 'rb') as file_pointer:
-      self.classifier_neural_net = pickle.load(file_pointer)
+        self.classifier_neural_net = pickle.load(file_pointer)
 
   def classify(self, image_file):
     score = self.classifier_neural_net.activate(io.twelve_tone(image_file))
     print(score)
+    score = round(score)
+    print(score)
 
-    if score < 1.5:
-      return "chick-peas"
+    if score == 1:
+        return "chick-peas"
+    elif score == 2:
+        return "green-peas"
     else:
-      return "green-peas"
+        return "rice"
