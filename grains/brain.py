@@ -68,9 +68,9 @@ class Brain():
         # classification
         self.data_sets._convertToOneOfMany()
 
-        self.classification_trainer.trainEpochs(30)
-        # print("Converging...This is going to take long!")
-        # self.classification_trainer.trainUntilConvergence()
+        # self.classification_trainer.trainEpochs(30)
+        print("Converging...This is going to take long!")
+        self.classification_trainer.trainUntilConvergence()
 
     def save(self, file_name="classifier.brain"):
         with open(get_path(file_name), 'wb') as file_pointer:
@@ -84,7 +84,7 @@ class Brain():
         if len(self.data_sets) == 0:
             print "No data_sets found. Maybe you loaded the classifier from a file?"
             return
-            
+
         tstresult = percentError(
                         self.classification_trainer.testOnClassData(dataset=self.data_sets),
                         self.data_sets['class']
