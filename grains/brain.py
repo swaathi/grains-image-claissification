@@ -85,6 +85,15 @@ class Brain():
             print "No data_sets found. Maybe you loaded the classifier from a file?"
             return
 
+        # regression
+        # tstresult = self.classifier_neural_net.activateOnDataset(self.data_sets)
+        # print self.data_sets['target']
+        # tstresult = mean_squared_error(self.data_sets['target'], tstresult)
+        # print "epoch: %4d" % self.classification_trainer.totalepochs, \
+        #       "trainer error: %5.2f%%" % tstresult, \
+        #       "trainer accuracy: %5.2f%%" % (100-tstresult)
+
+        # classification
         tstresult = percentError(
                         self.classification_trainer.testOnClassData(dataset=self.data_sets),
                         self.data_sets['class']
